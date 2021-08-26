@@ -19,6 +19,7 @@ function generate(board) {
                     'min' : 1,
                     'max' : 9,
                     'oninput' : "validate_input(this)",
+                    
                 })
                 $cell.css("text-align", "center")
                 $cell.addClass(`column-${col_num} col form-control input`)
@@ -65,7 +66,7 @@ function highlight() {
             
             remove_color($(this))
 
-            var $curr_cell = $(this)
+            const $curr_cell = $(this)
 
             $('.grid').children().each(function () {
                 
