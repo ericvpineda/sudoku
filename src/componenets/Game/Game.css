@@ -88,10 +88,13 @@ main {
 
 .input {
     background-color: #fffffe;
+    border-radius: 0;
 }
 
 .base {
     background-color: #ffd7ba;
+    caret-color : transparent;
+    border: none;
 }
 
 .highlight {
@@ -116,6 +119,26 @@ main {
 
     border-right: 2px solid #fff;
     border-bottom: 2px solid #fff;
+
+    /* border: none; */
+
+    text-align: center;
+}
+
+.col:nth-child(3n) {
+    border-right: 2px solid black;
+}
+
+.col:nth-child(9) {
+    border-right: none;
+}
+
+.row:nth-child(3n) {
+    border-bottom: 2px solid black;
+}
+
+.row:nth-child(9) {
+    border-bottom: none;
 }
 
 

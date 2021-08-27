@@ -1,59 +1,27 @@
 import $ from 'jquery'
 
 
-const valid_nums = ["1","2","3","4","5","6","7","8","9"]
-
-function generate(board) {
-
-    var row_num = 0
-    for (let row of board) {
-        var $curr_row = $(`.row-${row_num}`);
-        
-        var col_num = 0
-
-        for (let col of row) {
-            var $cell = null
-            if (col === "") {
-                $cell = $('<input>').attr({
-                    'type' : "number",
-                    'min' : 1,
-                    'max' : 9,
-                    'oninput' : "validate_input(this)",
-                    
-                })
-                $cell.css("text-align", "center")
-                $cell.addClass(`column-${col_num} col form-control input`)
-            } else {
-                $cell = $('<div>').css("caret-color", "transparent")
-                $cell.html(col)
-                $cell.addClass(`column-${col_num} col base`)
-            }
-            $curr_row.append($cell)
-            col_num += 1
-        }
-        row_num += 1;
-        col_num = 0
-    }
-}
-
 function get_difficulty() {
-    return $('#level').val()
+    const level = $('#level').val()
+    if (level === undefined) {
+        return "easy"
+    }
+    return level;
 }
 
 function clear_board() {
     $('.row').each(function() {
-
         $(this).children().each(function () {
-                $(this).remove()
+            $(this).val("")
+            $(this).removeClass('form-control input base') 
         })
     })
 }
 
 function reset() {
     $('.row').each(function() {
-
         $(this).children().each(function () {
-            if ($(this).is("input")) {
+            if ($(this).hasClass("input")) {
                 $(this).val("")
             } 
         })
@@ -62,21 +30,27 @@ function reset() {
 
 function highlight() {
     setTimeout(function () {
-        $("input").on("focusin", function () {
+        $(".input").on("focus", function (event) {
             
             remove_color($(this))
+            // var $curr_cell = $(this)
 
-            const $curr_cell = $(this)
-
-            $('.grid').children().each(function () {
+            // $('.grid').children().each(function () {
                 
-                $(this).on('click', function () {
+            //     $(this).on('click', function () {
                 
-                    var input = $(this).text()
-                    $curr_cell.val(input)
-                })
+            //         var input = $(this).text()
 
-            })
+            //         if ($curr_cell != null) {
+            //             $curr_cell.val(input)
+            //             $curr_cell = null
+            //         }
+
+            //         // console.log($curr_cell)
+            //     })
+
+            // })
+            
             
         }).on('focusout', function () {
             add_color($(this))
@@ -100,15 +74,26 @@ function validation_msg(result){
     }
 }
 
-function fill_board(board) {
+function fill_board(board, solution) {
     var row = 0;
+    
     $('.row').each(function() {
         var col = 0;
         $(this).children().each(function () {
-            if ($(this).is("input")) {
-                $(this).val(board[row][col])
+
+            var value = board[row][col]
+            $(this).val(value)
+
+            if (!solution) {
+                if (value === "") {
+                    $(this).addClass('form-control input')
+                } else {
+                    $(this).addClass('base')
+                }
+                $(this).removeAttr('disabled')
+            } else {
                 $(this).attr('disabled', 'disabled')
-            } 
+            }
             col += 1;
         })
         row += 1
@@ -132,41 +117,21 @@ function enable_buttons() {
 
 // // MAIN FUNCTIONS
 
-function validate_input(cell) {
-    if (!valid_nums.includes(cell.value)) {
-        cell.value = null
-    }
-}
-
-// function current_board(solve=false) {
-//     var test_output = []
-//     $('.row').each(function() {
-//         var row = []
-//         $(this).children().each(function () {
-//             if ($(this).is("div")) {
-//                 row.push($(this).text())
-//             } else if (solve) {
-//                 row.push(".")
-//             } else {
-//                 row.push($(this).val())
-//             }
-//         })
-//         test_output.push(row)
-//     })
-//     return test_output
-// }
-
 function remove_color($cell) {
     const cell_class = `${$cell.attr('class')}`.slice(0,8)
+    
     $(`.${cell_class}`).removeClass('base').addClass('highlight')
+    
     $cell.removeClass('highlight').addClass('highlight_cell')
-    $('input').each(function () {
+    
+    $('.input').each(function () {
         if ($(this).hasClass('highlight')) {
         $(this).removeClass('highlight').addClass('highlight_cell')
         }
     })
+    
     $cell.parent().children().each(function () {
-        if ($(this).is("input")) {
+        if ($(this).hasClass("input")) {
             $(this).removeClass('base').addClass('highlight_cell')
         } else {
             $(this).removeClass('base').addClass('highlight')
@@ -177,7 +142,8 @@ function remove_color($cell) {
 function add_color($cell) {
     const cell_class = `${$cell.attr('class')}`.slice(0,8)
     $(`.${cell_class}`).removeClass('highlight').addClass('base')
-    $('input').each(function () {
+    
+    $('.input').each(function () {
         if ($(this).hasClass('base')) {
           $(this).removeClass('base').addClass('input')
         }
@@ -186,7 +152,7 @@ function add_color($cell) {
         }
     })
     $cell.parent().children().each(function () {
-        if ($(this).is("input")) {
+        if ($(this).hasClass("input")) {
             $(this).removeClass('base').addClass('input')
         } else {
             $(this).removeClass('highlight').addClass('base')
@@ -194,8 +160,7 @@ function add_color($cell) {
     })
 }
 
-export {generate, highlight, get_difficulty, 
-    validation_msg, fill_board, clear_board, 
-disable_buttons, enable_buttons, reset, validate_input};
+export {highlight, get_difficulty, validation_msg, fill_board, clear_board, 
+disable_buttons, enable_buttons, reset};
 
 

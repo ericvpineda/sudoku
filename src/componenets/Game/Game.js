@@ -2,28 +2,24 @@ import Sudoku from './Utils/Sudoku.js'
 import * as options from './Utils/Board'
 import React from 'react'
 import $ from 'jquery'
+import Row from './Row'
 import './Game.css'
+import {useState, useMemo} from 'react'
+import Grid from './Grid'
+
 
 // BUTTONS 
 
-// note: remove stay focused effect 
-$('button').on('click', function (e) {
-    // $(this).blur()
-})
-
 const Game = (props) => {
 
-    const sudoku = new Sudoku()
+    const sudoku = new Sudoku();
     var board;
-
-    React.useEffect(() => {
-        buildSudoku()
-    })
+    buildSudoku()
+    
 
     function buildSudoku() {
-        const level = options.get_difficulty()
+        var level = options.get_difficulty()
         board = sudoku.createBoard(level);
-        options.generate(board);
         options.highlight(board)
     }
 
@@ -34,18 +30,25 @@ const Game = (props) => {
 
     function solveHandler() {
         const solution = sudoku.solveBoard(board)
-        options.fill_board(solution)
+        options.fill_board(solution, true)
         options.disable_buttons()
     }
 
     function newGame() {
         options.clear_board()
         buildSudoku()
+        options.fill_board(board, false)
         options.enable_buttons()
     }
 
     function resetHandler() {
         options.reset()
+    }
+
+    const [numPadValue, setNumPadValue] = useState(null);
+
+    function numPadValueHandler (num) {
+        setNumPadValue(num)
     }
 
     return (
@@ -61,19 +64,16 @@ const Game = (props) => {
 
             </nav>
 
+
             <main>
 
                 <div className="container container-css">
 
-                    <div className="row row-0"></div>
-                    <div className="row row-1"></div>
-                    <div className="row row-2"></div>
-                    <div className="row row-3"></div>
-                    <div className="row row-4"></div>
-                    <div className="row row-5"></div>
-                    <div className="row row-6"></div>
-                    <div className="row row-7"></div>
-                    <div className="row row-8"></div>
+                    {board.map((row, idx) => {
+                        return <div className={`row row-${idx}`}>
+                            <Row row={row} numPadValue={numPadValue}></Row>
+                        </div>
+                    })}
 
                 </div>
 
@@ -91,19 +91,8 @@ const Game = (props) => {
                   <p className="mb-0">You can do it, keep trying!</p>
                 </div>
 
-                <div className="grid">
 
-                    <button className="num">1</button>
-                    <button className="num">2</button>
-                    <button className="num">3</button>
-                    <button className="num">4</button>
-                    <button className="num">5</button>
-                    <button className="num">6</button>
-                    <button className="num">7</button>
-                    <button className="num">8</button>
-                    <button className="num">9</button>
-
-                </div>
+                <Grid getNumPadValue={numPadValueHandler}></Grid>
 
                 <div className="buttons">
 
