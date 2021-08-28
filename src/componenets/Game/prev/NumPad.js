@@ -1,7 +1,7 @@
 import './Game.css'
 import { useState } from 'react';
 
-const Grid = (props) => {
+const NumPad = (props) => {
 
 
     const numHandler = (event) => {
@@ -23,5 +23,5 @@ const Grid = (props) => {
     )
 }
 
-export default Grid;
+export default NumPad;
 

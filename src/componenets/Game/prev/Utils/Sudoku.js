@@ -53,32 +53,20 @@ class Sudoku {
     }
 
     _findPosition(board) {
-
         for (let x = 0; x < 9; x++) {
-            
             for (let y = 0; y < 9; y++) {
-
                 if (board[x][y] === "." || board[x][y] === "") {
-
                     return [x, y]
-
                 }
-
             }
         }
-
         return [null, null]
     }
 
     _validPlacement(row, col, temp, board) {
 
         for (let i = 0; i < 9; i++) {
-    
-            let rowItem = board[row][i]
-            let colItem = board[i][col]
-            
-            if (rowItem === temp || colItem === temp) {
-                
+            if (board[row][i] === temp || board[i][col] === temp) {
                 return false 
             }
 
@@ -88,11 +76,8 @@ class Sudoku {
         let block_c = Math.floor(col / 3) * 3
 
         for (let x = block_r; x < (block_r + 3); x++) {
-
             for (let y = block_c; y < (block_c + 3); y++) {
-
                 if (board[x][y] === temp) {
-
                     return false;
                 }
             }

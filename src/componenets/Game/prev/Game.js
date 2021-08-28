@@ -1,21 +1,21 @@
 import Sudoku from './Utils/Sudoku.js'
 import * as options from './Utils/Board'
 import React from 'react'
-import $ from 'jquery'
 import Row from './Row'
 import './Game.css'
-import {useState, useMemo} from 'react'
-import Grid from './Grid'
+import {useState, Children, useMemo} from 'react'
 
 
 // BUTTONS 
 
 const Game = (props) => {
 
-    const sudoku = new Sudoku();
     var board;
+    const sudoku = useMemo(() => {
+        return new Sudoku();
+    }, [])
+
     buildSudoku()
-    
 
     function buildSudoku() {
         var level = options.get_difficulty()
@@ -45,14 +45,15 @@ const Game = (props) => {
         options.reset()
     }
 
-    const [numPadValue, setNumPadValue] = useState(null);
+    const [numPadValue, setNumPadValue] = useState(10);
 
-    function numPadValueHandler (num) {
-        setNumPadValue(num)
+    function numHandler (event) {
+        setNumPadValue(event.target.value)
+        console.log(numPadValue)
     }
 
     return (
-        <div className="body">
+        <div>
            
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             
@@ -69,11 +70,11 @@ const Game = (props) => {
 
                 <div className="container container-css">
 
-                    {board.map((row, idx) => {
+                    {board && Children.toArray(board.map((row, idx) => {
                         return <div className={`row row-${idx}`}>
                             <Row row={row} numPadValue={numPadValue}></Row>
                         </div>
-                    })}
+                    }))}
 
                 </div>
 
@@ -92,7 +93,18 @@ const Game = (props) => {
                 </div>
 
 
-                <Grid getNumPadValue={numPadValueHandler}></Grid>
+                {/* <NumPad getNumPadValue={numPadValueHandler}></NumPad> */}
+                <div className="grid">
+                    <button className="num" onClick={numHandler} value="1">1</button>
+                    <button className="num" onClick={numHandler} value="2">2</button>
+                    <button className="num" onClick={numHandler} value="3">3</button>
+                    <button className="num" onClick={numHandler} value="4">4</button>
+                    <button className="num" onClick={numHandler} value="5">5</button>
+                    <button className="num" onClick={numHandler} value="6">6</button>
+                    <button className="num" onClick={numHandler} value="7">7</button>
+                    <button className="num" onClick={numHandler} value="8">8</button>
+                    <button className="num" onClick={numHandler} value="9">9</button>
+                </div>
 
                 <div className="buttons">
 
@@ -124,13 +136,13 @@ const Game = (props) => {
 
             </main>
 
-            <footer className="bg-dark text-muted sticky">
+            {/* <footer className="bg-dark text-muted sticky">
             
                 <div className="p-3 footer">
                 © 2021 Copyright:
                 </div>
 
-            </footer>
+            </footer> */}
 
         </div>
     )

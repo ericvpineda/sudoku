@@ -1,7 +1,7 @@
 import { useState } from "react"
 import './Game.css'
 
-const RowElement = (props) => {
+const Cell = (props) => {
 
     const [colValue, setColValue] = useState(props.col)
     
@@ -9,10 +9,7 @@ const RowElement = (props) => {
         if (props.standard === "false") {
             setColValue(event.target.value.slice(0,1))
         }
-        // if (props.numPadValue !== null) {
-        //     setColValue(props.numPadValue)
-        //     props.numPadValue = null;
-        // }
+
     }
     
     if (props.standard === "false") {
@@ -29,4 +26,4 @@ const RowElement = (props) => {
     
 }
 
-export default RowElement;
+export default Cell;
