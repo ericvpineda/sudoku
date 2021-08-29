@@ -12,6 +12,7 @@ function reducer(state = initState, action) {
             const workingGrid = options.gridCopy(challengeGrid)
             const hints = 3;
             const solved = false;
+            const time = 0;
             return {
                 ...state,
                 workingGrid,
@@ -19,7 +20,8 @@ function reducer(state = initState, action) {
                 challengeGrid,
                 baseGrid,
                 hints,
-                solved
+                solved,
+                time 
             }
         case types.ACTIVE_CELL:
             return {
@@ -94,8 +96,18 @@ function reducer(state = initState, action) {
             if (state.workingGrid && state.solvedGrid) {
                 state.solved = true;
                 return {
-                    ... state,
+                    ...state,
                     solved : state.solved 
+                }
+            }
+            return state;
+
+        case types.INCREMENT_TIME:
+            if (state.workingGrid && state.solvedGrid && !state.solved) {
+                state.time += 10
+                return {
+                    ...state,
+                    time : state.time
                 }
             }
             return state;

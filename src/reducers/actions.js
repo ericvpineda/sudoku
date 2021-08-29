@@ -48,5 +48,11 @@ const solved = () => {
         type : types.SOLVED
     }
 }
+
+const incrementTime = () => {
+    return {
+        type : types.INCREMENT_TIME
+    }
+}
  
-export {createGrid, selectCell, fillCell, deleteCell, decrementHint, solveGrid, solved};
+export {createGrid, selectCell, fillCell, deleteCell, decrementHint, solveGrid, solved, incrementTime};

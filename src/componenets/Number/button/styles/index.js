@@ -28,7 +28,7 @@ const Button = styled.button`
         transition: ${theme.transition};
 
         &:focus {
-            border-color: ${theme.colors.blue};
+            border-color: ${theme.colors.lightred};
             outline: none;
         }
 
