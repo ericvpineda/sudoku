@@ -11,14 +11,14 @@ const persistConfig = {
 
 const persistedRedux = persistReducer(persistConfig, reducer);
 
-function configStore(initState = {}) {
+function configStore(state = {}) {
     const store = createStore(
         persistedRedux,
-        initState,
-        // applyMiddleware(thunk),
+        state,
         devToolsEnhancer({})
     )
     const persistor = persistStore(store)
+    
     return {store, persistor}
 }
 

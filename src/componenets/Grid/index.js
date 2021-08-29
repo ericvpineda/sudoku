@@ -15,12 +15,12 @@ const Grid = () => {
         selectedValue : workingGrid && selectedCell ? workingGrid[selectedCell[0]][selectedCell[1]] : 0,
         solvedGrid
     }))
-    const create = useCallback(() => dispatch(createGrid()), [dispatch])
+    const createGame = useCallback(() => dispatch(createGrid()), [dispatch])
     useEffect(() => {
         if (!state.solvedGrid) {
-            create()            
+            createGame()            
         }
-    }, [create])
+    }, [createGame, state.solvedGrid, dispatch])
 
     const fill = useCallback((n) => {
         if (state.selectedCell && state.selectedValue === ".") {
@@ -28,51 +28,37 @@ const Grid = () => {
         }
     }, [dispatch, state.selectedCell, state.selectedValue])
 
-    function movedown() {
-        if (state.selectedCell && state.selectedCell[0] < 8) {
-            dispatch(
-                selectCell([
-                    (state.selectedCell[0] + 1),
-                    state.selectedCell[1]
-                ])
-            )
-        }
-    }
-    function moveup() {
-        if (state.selectedCell && state.selectedCell[0] > 0) {
-            dispatch(
-                selectCell([
-                    (state.selectedCell[0] - 1),
-                    state.selectedCell[1]
-                ])
-            )
-        }
-    }
-    function moveright() {
-        if (state.selectedCell && state.selectedCell[1] < 8) {
-            dispatch(
-                selectCell([
-                    state.selectedCell[0],
-                    state.selectedCell[1] + 1
-                ])
-            )
-        }
-    }
-    function moveleft() {
-        if (state.selectedCell && state.selectedCell[1] > 0) {
-            dispatch(
-                selectCell([
-                    state.selectedCell[0],
-                    state.selectedCell[1] - 1
-                ])
-            )
+    function move(select, xAxis, step) {
+        if (state.selectedCell) {
+            const xPos = state.selectedCell[0];
+            const yPos = state.selectedCell[1];
+            const xStep = select === 0 ? step : 0; 
+            const yStep = select === 1 ? step : 0;
+
+            if (xAxis && ((xPos > 0 && xPos < 8) ||
+                (xPos === 0 && step > 0) || 
+                (xPos === 8 && step < 0))
+                ) {
+                dispatch(
+                    selectCell([
+                        (xPos + xStep),
+                        (yPos)
+                    ])
+                )
+            } else if ((yPos > 0 && yPos < 8) ||
+                (yPos === 0 && step > 0) || 
+                (yPos === 8 && step < 0)
+                ) {
+                dispatch(
+                    selectCell([
+                        (xPos),
+                        (yPos + yStep)
+                    ])
+                )
+            }
         }
     }
 
-    useMouseTrap('down', movedown)
-    useMouseTrap('up', moveup)
-    useMouseTrap('left', moveleft)
-    useMouseTrap('right', moveright)
     useMouseTrap('1',() => fill(1))
     useMouseTrap('2',() => fill(2))
     useMouseTrap('3',() => fill(3))
@@ -82,6 +68,11 @@ const Grid = () => {
     useMouseTrap('7',() => fill(7))
     useMouseTrap('8',() => fill(8))
     useMouseTrap('9',() => fill(9))
+
+    useMouseTrap('down', () => move(0, true, 1))
+    useMouseTrap('up', () => move(0, true, -1))
+    useMouseTrap('left', () => move(1, false, -1))
+    useMouseTrap('right', () => move(1, false, 1))
 
     return (
         <Container data="grid">

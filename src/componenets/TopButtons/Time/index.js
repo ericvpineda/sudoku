@@ -13,7 +13,7 @@ const Time = () => {
                 dispatch(incrementTime())
             }, 10)
         return () => clearInterval(interval)
-    }, [state.solvedGrid])
+    }, [state.solvedGrid, dispatch])
 
     return (
         <Container>Time: 

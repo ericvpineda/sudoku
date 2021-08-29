@@ -8,7 +8,7 @@ function reducer(state = initState, action) {
         case types.CREATE_GRID:
             const solvedGrid = options.createGrid()
             const baseGrid = options.gridCopy(solvedGrid)
-            const challengeGrid = options.removeNumbers(baseGrid, 30)
+            const challengeGrid = options.removeNumbers(baseGrid, 17)
             const workingGrid = options.gridCopy(challengeGrid)
             const hints = 3;
             const solved = false;
@@ -37,10 +37,13 @@ function reducer(state = initState, action) {
 
                 if (options.compareGrids(state.workingGrid, state.solvedGrid)) {
                     alert('Completed, good job!')
+                    state.solved = true;
                 }
+
                 return {
                     ...state,
-                    workingGrid : [...state.workingGrid]
+                    solved : state.solved,
+                    workingGrid : [...state.workingGrid],
                 }
             }
             return state;
@@ -59,7 +62,7 @@ function reducer(state = initState, action) {
                 }
                 return state;
             }
-
+            return state;
         case types.DECREMENT_HINT:
             if (!state.solved && !options.compareGrids(state.workingGrid, state.solvedGrid)) {
                 if (state.workingGrid && state.solvedGrid && state.hints > 0) {
@@ -68,8 +71,15 @@ function reducer(state = initState, action) {
     
                     state.workingGrid[row][col] = value;
                     state.hints -= 1;
+
+                    if (options.compareGrids(state.workingGrid, state.solvedGrid)) {
+                        alert('Completed, good job!')
+                        state.solved = true;
+                    }
+
                     return {
                         ...state,
+                        solved : state.solved,
                         hints : state.hints,
                         workingGrid : [...state.workingGrid]
                     }
@@ -79,7 +89,6 @@ function reducer(state = initState, action) {
                 }
             }
             return state;
-           
         case types.SOLVE_GRID:
             if (!state.solved && state.workingGrid && state.solvedGrid) {
                 const row = action.coords[0]
@@ -91,7 +100,6 @@ function reducer(state = initState, action) {
                 }
             }
             return state; 
-        
         case types.SOLVED:
             if (state.workingGrid && state.solvedGrid) {
                 state.solved = true;
@@ -101,7 +109,6 @@ function reducer(state = initState, action) {
                 }
             }
             return state;
-
         case types.INCREMENT_TIME:
             if (state.workingGrid && state.solvedGrid && !state.solved) {
                 state.time += 10
@@ -111,7 +118,6 @@ function reducer(state = initState, action) {
                 }
             }
             return state;
-
         default:
             return state
     }

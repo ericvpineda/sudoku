@@ -5,15 +5,15 @@ import { deleteCell } from '../../../reducers';
 const EraseButton = () => {
     
     const dispatch = useDispatch()
-    const state = useSelector(({workingGrid, selectedCell}) => 
-    ({workingGrid, selectedCell}))
+    const state = useSelector(({workingGrid, selectedCell,solved}) => 
+    ({workingGrid, selectedCell, solved}))
 
     const eraseCellHandler = () => {
         dispatch(deleteCell(state.selectedCell))
     }
 
     return (
-        <Button onClick={eraseCellHandler}>Erase</Button>
+        <Button disabled={state.solved} onClick={eraseCellHandler}>Erase</Button>
     )
 }
 

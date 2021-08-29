@@ -5,7 +5,7 @@ const Container = styled.div`
         color : ${theme.colors.red};
         margin-bottom: 0;
         margin-left: 0;
-        padding-top: 1rem;
+        padding-top: 1.2rem;
         font-weight: bold;
         }`
     }`

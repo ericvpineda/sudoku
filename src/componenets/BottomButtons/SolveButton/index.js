@@ -5,7 +5,7 @@ import { solveGrid, solved } from "../../../reducers";
 const SolveButton = () => {
 
     const dispatch = useDispatch();
-    const state = useSelector(({workingGrid, solvedGrid}) => ({workingGrid, solvedGrid}))
+    const state = useSelector(({workingGrid, solvedGrid, solved}) => ({workingGrid, solvedGrid, solved}))
     
     const solveHandler = () => {
         for (let i = 0; i < 9; i++) {
@@ -22,7 +22,7 @@ const SolveButton = () => {
     }
 
     return (
-        <Container onClick={solveHandler}>Solve</Container>
+        <Container disabled={state.solved} onClick={solveHandler}>Solve</Container>
     )
 }
 

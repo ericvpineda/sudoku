@@ -1,9 +1,9 @@
 import styled, {css} from "styled-components";
 
 const Button = styled.button`
-    ${({theme, number}) => css`
+    ${({theme, number, disabled, newButton}) => css`
 
-        background-color: ${number ? '#fff' : theme.colors.black};
+        background-color: ${number ? theme.colors.white : theme.colors.black};
         color: ${number ? theme.colors.red : theme.colors.white};
 
         border: ${number ? "none" : "2px solid theme.colors.black"};
@@ -24,16 +24,17 @@ const Button = styled.button`
         margin: 4px 2px;
         padding: 0;
 
-        opacity: 0.9;
+        opacity: ${disabled ? "0.2" : "0.9"};
         transition: ${theme.transition};
 
         &:focus {
-            border-color: ${theme.colors.lightred};
+            pointer-events: ${disabled ? "none" : "auto"};
             outline: none;
         }
 
         &:hover {
-            opacity: 0.6;
+            opacity: ${disabled ? "0.2" : "0.6"};
+            cursor: ${disabled ? "default" : "pointer"}
         }
     `}
 `

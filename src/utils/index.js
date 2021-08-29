@@ -1,5 +1,3 @@
-import { solveGrid } from "../reducers";
-
 function compareGrids(grid1, grid2) {
     if (!Array.isArray(grid1) && !Array.isArray(grid2)) {
         return grid1 === grid2;
@@ -130,7 +128,7 @@ const shuffleArray = (array) => {
     return array;
 }
 
-function removeNumbers(grid, attempts = 5) {
+function removeNumbers(grid, attempts) {
 
     while (attempts > 0) {
         let row = randomInt()
@@ -141,17 +139,8 @@ function removeNumbers(grid, attempts = 5) {
             col = randomInt()
         }
 
-        const prev = grid[row][col]
         grid[row][col] = "."
-
-        const copyGrid = gridCopy(grid)
-        // grid = FillGrid(grid, false)
-
-
-        if (global.counter !== 1) {
-            // grid[row][col] = prev
-            attempts -= 1;
-        }
+        attempts -= 1;
     }
 
     return grid 
