@@ -13,22 +13,22 @@ const Row = styled.div`
 
         &:nth-child(3n + 1) {
             div {
-                border-top: solid 4px ${theme.colors.black};
+                border-top: solid 2px ${theme.colors.black};
             }
         }
 
         &:nth-child(9) {
             div {
-                border-bottom: solid 4px ${theme.colors.black};
+                border-bottom: solid 2px ${theme.colors.black};
             }
         }
 
         div {
             &:nth-child(3n) {
-                border-right: solid 4px ${theme.colors.black};
+                border-right: solid 2px ${theme.colors.black};
             }
             &:nth-child(1) {
-                border-left: solid 4px ${theme.colors.black};
+                border-left: solid 2px ${theme.colors.black};
             }
         }
     `}

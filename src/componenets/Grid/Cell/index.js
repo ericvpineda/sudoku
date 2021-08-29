@@ -5,8 +5,6 @@ import { selectCell } from '../../../reducers';
 
 const Cell = (props) => {
 
-   
-    
     const state = useSelector(({workingGrid, selectedCell, challengeGrid}) => ({
         isActive : selectedCell ? selectedCell[0] === props.row && 
             selectedCell[1] === props.col : false,

@@ -3,8 +3,8 @@ import styled, {css} from "styled-components";
 const Container = styled.div`
     ${({active, theme, puzzle}) => css`
         align-items: center;
-        background-color: ${active ? theme.colors.blue : theme.colors.white};
-        border: solid 1px ${theme.colors.black};
+        background-color: ${active ? theme.colors.red : theme.colors.white};
+        border: solid 0.7px ${theme.colors.lightgrey};
         cursor: pointer;
         display: flex;
         flex-grow: 1;
@@ -17,7 +17,7 @@ const Container = styled.div`
         transition: ${theme.transition}
         user-select: none;
         caret-color: transparent;
-        color : ${puzzle ? 'black' : 'green' };
+        color : ${puzzle ? 'black' : '#62b6cb' };
 
         &:before {
             padding-top: 100%;
@@ -26,7 +26,7 @@ const Container = styled.div`
         }
 
         &:hover {
-            background-color: ${theme.colors.lightblue};
+            background-color: ${theme.colors.lightred};
             transition : ${theme.transition}
         }
 

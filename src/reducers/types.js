@@ -1,3 +1,7 @@
 export const CREATE_GRID = "CREATE_GRID"
 export const ACTIVE_CELL = "ACTIVE_CELL"
 export const FILL_CELL = "FILL_CELL"
+export const DELETE_CELL = "DELETE_CELL"
+export const DECREMENT_HINT = "DECREMENT_HINT"
+export const SOLVE_GRID = "SOLVE_GRID"
+export const SOLVED = "SOLVED"

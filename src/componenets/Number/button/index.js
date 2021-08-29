@@ -19,7 +19,7 @@ const NumberButton = (props) => {
     }, [dispatch, state.selectedCell, state.value, props.value])
 
     return (
-        <Button onClick={fill}>{props.value}</Button>
+        <Button number={true} onClick={fill}>{props.value}</Button>
     )
 }
 

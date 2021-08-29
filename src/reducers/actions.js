@@ -20,5 +20,33 @@ const fillCell = (value, coords) => {
         coords
     }
 }
+
+const deleteCell = (coords) => {
+    return {
+        type : types.DELETE_CELL,
+        coords
+    }
+}
+
+const decrementHint = (value) => {
+    return {
+        type : types.DECREMENT_HINT,
+        value
+    }
+}
+
+const solveGrid = (coords, value) => {
+    return {
+        type : types.SOLVE_GRID,
+        value,
+        coords
+    }
+}
+
+const solved = () => {
+    return {
+        type : types.SOLVED
+    }
+}
  
-export {createGrid, selectCell, fillCell};
+export {createGrid, selectCell, fillCell, deleteCell, decrementHint, solveGrid, solved};
