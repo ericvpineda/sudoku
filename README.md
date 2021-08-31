@@ -9,11 +9,11 @@
 
 ## Functionality 
 - Buttons:
-..- New: create new game
-..- Solve: generate solution to current game 
-..- Hint: get next solution to board cell in increasing row and column order 
-..- Erase: delete input value of currently selected cell
-..- Number pad: used for inputing values in selected cell 
+...- New: create new game
+...- Solve: generate solution to current game 
+...- Hint: get next solution to board cell in increasing row and column order 
+...- Erase: delete input value of currently selected cell
+...- Number pad: used for inputing values in selected cell 
 
 ## New Features:
 - Use of arrow keys to move focused cell 
