@@ -4,7 +4,7 @@ import Cell from './Cell'
 import {createGrid} from '../../reducers'
 import { useDispatch, useSelector } from 'react-redux';
 import useMouseTrap from 'react-hook-mousetrap'
-import { selectCell, fillCell } from '../../reducers';
+import { selectCell, fillCell, deleteCell } from '../../reducers';
 
 
 const Grid = () => {
@@ -59,6 +59,10 @@ const Grid = () => {
         }
     }
 
+    function deleteHandler() {
+        dispatch(deleteCell(state.selectedCell))
+    }
+
     useMouseTrap('1',() => fill(1))
     useMouseTrap('2',() => fill(2))
     useMouseTrap('3',() => fill(3))
@@ -73,6 +77,7 @@ const Grid = () => {
     useMouseTrap('up', () => move(0, true, -1))
     useMouseTrap('left', () => move(1, false, -1))
     useMouseTrap('right', () => move(1, false, 1))
+    useMouseTrap('backspace', deleteHandler)
 
     return (
         <Container data="grid">
