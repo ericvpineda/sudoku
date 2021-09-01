@@ -21,7 +21,7 @@
 
 ## References 
 - Hosted on [Heroku](https://www.heroku.com/)
-- Uses [react-hook-mousetrap](https://github.com/olup/react-hook-mousetrap) for keyboard actions
+- Uses [react-hook-mousetrap](https://github.com/olup/react-hook-mousetrap) API for keyboard actions
 
 
 
