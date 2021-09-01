@@ -17,7 +17,7 @@
 
 ## New Features:
 - Use of arrow keys to move focused cell 
-    - Can use number pad to input values and delete value via backspace key 
+    - Can use keyboard number pad to input values and backspace key to delete values 
 
 ## References 
 - Hosted on [Heroku](https://www.heroku.com/)
